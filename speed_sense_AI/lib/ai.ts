@@ -17,6 +17,8 @@ const openai = new OpenAI({
   },
 });
 
+const AI_MODEL = process.env.OPENROUTER_MODEL || 'openrouter/free';
+
 export interface ExpenseRecord {
   id: string;
   amount: number;
@@ -68,7 +70,7 @@ export async function generateExpenseInsights(
     Return only valid JSON array, no additional text.`;
 
     const completion = await openai.chat.completions.create({
-      model: 'deepseek/deepseek-chat-v3-0324:free',
+      model: AI_MODEL,
       messages: [
         {
           role: 'system',
@@ -138,7 +140,7 @@ export async function generateExpenseInsights(
 export async function categorizeExpense(description: string): Promise<string> {
   try {
     const completion = await openai.chat.completions.create({
-      model: 'deepseek/deepseek-chat-v3-0324:free',
+      model: AI_MODEL,
       messages: [
         {
           role: 'system',
@@ -202,7 +204,7 @@ export async function generateAIAnswer(
     Return only the answer text, no additional formatting.`;
 
     const completion = await openai.chat.completions.create({
-      model: 'deepseek/deepseek-chat-v3-0324:free',
+      model: AI_MODEL,
       messages: [
         {
           role: 'system',
